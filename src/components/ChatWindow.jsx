@@ -5,16 +5,21 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 export default function({avatar, name}) {
     return (
         <div className='chatWindow'>
-            <div className="chatWindowHeader">
-                <div className="chatWindowUserInfo">
-                    <img src={avatar} alt="avatar" />
-                    <div className="userName">{name}</div>
+            <div className="chatWindow--header">
+                <div className="chatWindow--info">
+                    <img className="chatWindow--avatar" src={avatar} alt="avatar" />
+                    <div className="chatWindow--name">{name}</div>
                 </div>
-                <div className="chatWindowUserInfo">
-                    <MoreVertIcon style={{color: 'lightgray'}}/>
+                <div className="chatWindow--info">
+                    <div className="chatwindow--header--icons">
+                        <MoreVertIcon style={{color: 'lightgray'}}/>
+                    </div>
                 </div>
             </div>
-            <div className="chatWindowBody">
+            <div className="chatWindow--body">
+                ...
+            </div>
+            <div className="chatWindowFooter">
                 ...
             </div>
         </div>
