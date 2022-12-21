@@ -49,9 +49,7 @@ export default function App() {
                 key={key}
                 active={activeChat.chatId === chatlist[key].chatId}
                 onClick={() => setActiveChat(chatlist[key])}
-                avatar={item.image}
-                name={item.title}
-              
+                data={item}
               />
             ))
           }
