@@ -38,19 +38,19 @@ export default function({avatar, name}) {
                 </div>
                     <div className="chatWindow--headerbuttons">
                     <div className="chatWindow--btn">
-                        <SearchIcon style={{color: 'lightgray'}} fontSize='medium'/>
+                        <SearchIcon style={{color: 'lightgray'}}/>
                     </div>
                     <div className="chatWindow--btn">
-                        <AttachFileIcon style={{color: 'lightgray'}} fontSize='medium'/>
+                        <AttachFileIcon style={{color: 'lightgray'}}/>
                     </div>
                     <div className="chatWindow--btn">
-                        <MoreVertIcon style={{color: 'lightgray'}} fontSize='medium'/>
+                        <MoreVertIcon style={{color: 'lightgray'}}/>
                     </div>
                         
                 </div>
             </div>
             <div className="chatWindow--body">
-                <div className="chatWindow--emojiarea" style={{opacity: emojisOpen ? 1 : 0}}>
+                <div className="chatWindow--emojiarea" style={{height: emojisOpen ? '100%' : 0}}>
                     <EmojiPicker 
                         onEmojiClick={handleEmojiClick}
                         // disableSearchBar
@@ -61,11 +61,11 @@ export default function({avatar, name}) {
             </div>
             <div className="chatWindow--footer">
                 <div className="chatWindow--footer--pre">
-                    <div className="chatWindow--btn" onClick={closeEmojiBox}>
-                        <CloseIcon style={{color: 'lightgray'}} fontSize='medium'/>
+                    <div className="chatWindow--btn" onClick={closeEmojiBox} style={{width: emojisOpen ? '50px' : '0px', display: emojisOpen ? 'block' : 'none'}}>
+                        <CloseIcon style={{color: 'lightgray'}}/>
                     </div>
                     <div className="chatWindow--btn" onClick={openEmojiBox}>
-                        <TagFacesIcon style={{color: 'lightgray'}} fontSize='medium'/>
+                        <TagFacesIcon style={{color: 'lightgray'}}/>
                     </div>
                 </div>
                 <div className="chatWindow--footer--inputarea">
@@ -73,7 +73,7 @@ export default function({avatar, name}) {
                 </div>
                 <div className="chatWindow--footer--pos">
                     <div className="chatWindow--btn">
-                        <SendIcon style={{color: 'lightgray'}} fontSize='medium'/>
+                        <SendIcon style={{color: 'lightgray'}}/>
                     </div>
 
                 </div>

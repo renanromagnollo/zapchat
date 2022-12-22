@@ -63,16 +63,26 @@
     align-items: center;
 }
 
-.chatWindow--btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    padding: 10px;
-    /* background-color: darkgray; */
-    margin-right: 15px;
+.chatWindow--footer--pre {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    /* padding: 10px; */
+}
+
+.chatWindow--btn {
+    /* width: 50px; */
+    /* height: 50px; */
+    border-radius: 50%;
+    padding: 0 10px;
+    /* background-color: darkgray; */
+    /* margin-right: 15px; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .4s ease-in;
 }
 
 
@@ -144,7 +154,8 @@ aside.EmojiPickerReact.epr-main {
 
 .chatWindow--footer--pre {
     display: flex;
-    marign: 0 15px;
+    justify-content: flex-start;
+    /* marign: 0 15px; */
 }
 .chatWindow--footer--inputarea {
     flex: 1;
