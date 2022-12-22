@@ -29,7 +29,7 @@ export default function({avatar, name}) {
                     <img className="chatWindow--avatar" src={avatar} alt="avatar" />
                     <div className="chatWindow--name">{name}</div>
                 </div>
-                <div className="chatWindow--headerbuttons">
+                    <div className="chatWindow--headerbuttons">
                     <div className="chatWindow--btn">
                         <SearchIcon style={{color: 'lightgray'}} fontSize='medium'/>
                     </div>
@@ -43,14 +43,14 @@ export default function({avatar, name}) {
                 </div>
             </div>
             <div className="chatWindow--body">
-                <div className="chatWindow--textarea"></div>
-                <div className="chatWindow--emojiarea" style={{height: emojisOpen ? '200px' : '0px'}}>
+                <div className="chatWindow--emojiarea">
                     <EmojiPicker 
                         onEmojiClick={handleEmojiClick}
                         // disableSearchBar
                         // disableSkinTonePicker
                     />
                 </div>
+                <div className="chatWindow--chatmsgsarea"></div>
             </div>
             <div className="chatWindow--footer">
                 <div className="chatWindow--footer--pre">
