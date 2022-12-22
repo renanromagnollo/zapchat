@@ -13,15 +13,22 @@ import CloseIcon from '@mui/icons-material/Close';
 
 export default function({avatar, name}) {
 
-    const [emojisOpen, setEmojiOpens] = useState(false)
+    const [emojisOpen, setEmojiOpen] = useState(false)
+    
 
-    const handleEmojiOpen = () => {
-        setEmojiOpens(true)
+    const openEmojiBox = () => {
+        setEmojiOpen(true)
+    }
+    const closeEmojiBox = () => {
+        setEmojiOpen(false)
     }
 
     const handleEmojiClick = () => {
 
     }
+
+    
+
     return (
         <div className='chatWindow'>
             <div className="chatWindow--header">
@@ -43,7 +50,7 @@ export default function({avatar, name}) {
                 </div>
             </div>
             <div className="chatWindow--body">
-                <div className="chatWindow--emojiarea">
+                <div className="chatWindow--emojiarea" style={{opacity: emojisOpen ? 1 : 0}}>
                     <EmojiPicker 
                         onEmojiClick={handleEmojiClick}
                         // disableSearchBar
@@ -54,10 +61,10 @@ export default function({avatar, name}) {
             </div>
             <div className="chatWindow--footer">
                 <div className="chatWindow--footer--pre">
-                    <div className="chatWindow--btn">
+                    <div className="chatWindow--btn" onClick={closeEmojiBox}>
                         <CloseIcon style={{color: 'lightgray'}} fontSize='medium'/>
                     </div>
-                    <div className="chatWindow--btn" onClick={handleEmojiOpen}>
+                    <div className="chatWindow--btn" onClick={openEmojiBox}>
                         <TagFacesIcon style={{color: 'lightgray'}} fontSize='medium'/>
                     </div>
                 </div>
