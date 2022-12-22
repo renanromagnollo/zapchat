@@ -1,1 +1,3 @@
+criar salas temáticas
+filtro usuários por tema
 criar classe temas

@@ -4,18 +4,39 @@
     flex-direction:column;
 }
 
+
+
 .chatWindow--header {
     height: 60px;
     display: flex;
     justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* filter: blur(1.5rem) */
+    /* opacity: .5; */
+
     
 }
+/* .chatWindow--header:before{
+    content: '';
+    background-color: black;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    filter: blur(2.5rem);
+} */
 
 .chatWindow--info {
+    height: 100%;
     display: flex;
     justify-content: space-between;
-    height: 100%;
-    padding: 10px;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.chatWindow--info > * {
+    margin-left: 10px;
 }
 
 .chatWindow--info img {
@@ -23,10 +44,106 @@
     height: 50px;
     border-radius: 50%;
 }
-.chatWindow--body {
+
+.chatWindow--name {
+    font-size: 1.2rem;
+    color: #F1F1F1;
+
+}
+
+
+
+
+.chatWindow--headerbuttons {
+    display: flex;
+    justify-content: space-between;
+    /* height: 100%; */
+    align-items: center;
+}
+
+.chatWindow--btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 10px;
+    /* background-color: darkgray; */
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatWindow--footer {
+    height: 62px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatWindow--footer--pre {
+    display: flex;
+    marign: 0 15px;
+}
+.chatWindow--footer--inputarea {
     flex: 1;
-    background: url('../assets/nature02.gif');
+}
+.chatWindow--input {
     width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
+    height: 40px;
+    border: 0;
+    outline: 0;
+    background-color: rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    font-size: 15px;
+    color: #4A4A4A;
+    padding-left: 15px;
+    
+}
+.chatWindow--footer--pos {
+    display: flex;
+    marign: 0 15px;
+}
+
+.chatWindow--body {
+    position: relative;
+    /* /* width: 100%; */
+    width: 100%;
+    height: 100%; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* background-color: pink; */
+}
+.chatWindow--textarea {
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    
+}
+
+.chatWindow--emojiarea {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: flex-end; */
+    /* height: auto; */
+    display: none;
+    width: 100%;
+    height: 100%; 
+    position: relative;
+    overflow-y: hidden;
+    margin-left: 20px;
+    z-index: 10;
+    /* margin-bottom: 200px; */
+    /* width: 100%; */
+    /* height: 100%; */
+}
+
+/* .EmojiPickerReact epr-main{
+    width:100%;
+} */
+
+.EmojiPickerReact.epr-main {
+    height: 100%;
+    /* margin-left: 20px; */
+     position: absolute;
+    /* height: 300px;   */
 }

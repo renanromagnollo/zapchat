@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
 import './App.css';
-import DonutLargeIcon from '@mui/icons-material/DonutLarge';
-import ChatIcon from '@mui/icons-material/Chat';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SearchIcon from '@mui/icons-material/Search';
+import React, { useState } from 'react';
+
 import ChatListItem from './components/ChatListItem';
 import ChatIntro from './components/ChatIntro';
 import ChatWindow from './components/ChatWindow';
 
+import DonutLargeIcon from '@mui/icons-material/DonutLarge';
+import ChatIcon from '@mui/icons-material/Chat';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import SearchIcon from '@mui/icons-material/Search';
+
+
 export default function App() {
 
   const [chatlist, setChatlist] = useState([
-    {chatId: 1, title: 'Rolando Caio da Rocha', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0luq0mPWlgaA4UpezZkeROrrW0NMUAkqmhzNCmK5ZtqoiqoZJv5euTP-hVpbUO4HZ1M&usqp=CAU'},
-    {chatId: 2, title: 'José Filisbino', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1h7dO12Dv3VsrU4QjKj-l9eptxdk-efkp3YQOdlp0ddfGnVO2O7WmThkbD8br-St3i1o&usqp=CAU'},
-    {chatId: 3, title: 'Frank de Boer', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJwVGegGrdsn81S_ocY4pGGssZ29-KIBi4pvYJ2djen4tpubF4hE-pJXYyDvkTsETyrjk&usqp=CAU'},
-    {chatId: 4, title: 'Uildisney', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyWhmZcmkHeaJotVrCWeyGeszRnqmLyw7ryH6WoagTVZxNMNN3EQP-59fMoOSqpCAscx8&usqp=CAU'},
+    {chatId: 1, name: 'Rolando Caio da Rocha', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0luq0mPWlgaA4UpezZkeROrrW0NMUAkqmhzNCmK5ZtqoiqoZJv5euTP-hVpbUO4HZ1M&usqp=CAU'},
+    {chatId: 2, name: 'José Filisbino', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1h7dO12Dv3VsrU4QjKj-l9eptxdk-efkp3YQOdlp0ddfGnVO2O7WmThkbD8br-St3i1o&usqp=CAU'},
+    {chatId: 3, name: 'Frank de Boer', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJwVGegGrdsn81S_ocY4pGGssZ29-KIBi4pvYJ2djen4tpubF4hE-pJXYyDvkTsETyrjk&usqp=CAU'},
+    {chatId: 4, name: 'Uildisney', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyWhmZcmkHeaJotVrCWeyGeszRnqmLyw7ryH6WoagTVZxNMNN3EQP-59fMoOSqpCAscx8&usqp=CAU'},
   ])
   const [activeChat, setActiveChat] = useState({})
 
@@ -57,7 +60,7 @@ export default function App() {
       </div>
       <div className="contentarea">
         {activeChat.chatId !== undefined &&
-          <ChatWindow name={activeChat.title} avatar={activeChat.image}/>
+          <ChatWindow name={activeChat.name} avatar={activeChat.image}/>
         }
         {activeChat.chatId === undefined &&
           <ChatIntro/>
