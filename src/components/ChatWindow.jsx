@@ -13,8 +13,15 @@ import CloseIcon from '@mui/icons-material/Close';
 
 export default function({avatar, name}) {
 
+    let recognition = null;
+    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    if(SpeechRecognition !== undefined) {
+        recognition = new SpeechRecognition()
+    }
+
     const [emojisOpen, setEmojiOpen] = useState(false)
     const [text, setText] = useState('')
+    const [listening, setListening] = useState(false)
     
 
     const handleEmojisBox = () => {
@@ -25,6 +32,23 @@ export default function({avatar, name}) {
         // console.log('e:', e)
         // console.log('emojiObject:', emojiObject)
         setText(text + e.emoji)
+    }
+
+    const handleMicClick = () => {
+        if(recognition !== null ) {
+            recognition.onstart = () => { //quando começar a escutar
+                setListening(true)
+            }
+            recognition.onend = () => { // qnd parar
+                setListening(false)
+                
+            }
+            recognition.onresult = (e) => { // qnd chegar o resultado
+                setText(e.results[0][0].transcript) // pegando a transcrição
+            }
+
+            recognition.start(); // começar a escutar
+        }
     }
 
     
@@ -87,8 +111,8 @@ export default function({avatar, name}) {
                             <SendIcon style={{color: 'lightgray'}}/>
                         </div>
                         :
-                        <div className="chatWindow--btn">
-                            <KeyboardVoiceIcon style={{color: 'lightgray'}}/>
+                        <div className="chatWindow--btn" onClick={handleMicClick}>
+                            <KeyboardVoiceIcon style={{color: listening ? 'green' : 'lightgray'}}/>
                         </div>
                     }
 
