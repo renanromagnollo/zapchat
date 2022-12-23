@@ -13,10 +13,10 @@ body {
   height: 100vh;
   display: flex;
   /* background-color: #EDEDED; */
-  background: url('./assets/nature01.gif');
+  background: url('./assets/excalibur.gif');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: 100% 100% ;
 }
 
 .sidebar {
@@ -27,7 +27,7 @@ body {
   /* padding: 10px; */
   flex-direction: column;
   border-right: 1px solid rgba(0, 0, 0, .8);
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, .3);
 }
 
 header {
@@ -36,7 +36,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 15px;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, .3);
   /* background-color: lightgray; */
 
 }

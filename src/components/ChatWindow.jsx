@@ -81,9 +81,16 @@ export default function({avatar, name}) {
                     />
                 </div>
                 <div className="chatWindow--footer--pos">
-                    <div className="chatWindow--btn">
-                        <SendIcon style={{color: 'lightgray'}}/>
-                    </div>
+                    {text 
+                        ? 
+                        <div className="chatWindow--btn">
+                            <SendIcon style={{color: 'lightgray'}}/>
+                        </div>
+                        :
+                        <div className="chatWindow--btn">
+                            <KeyboardVoiceIcon style={{color: 'lightgray'}}/>
+                        </div>
+                    }
 
                 </div>
             </div>

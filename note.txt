@@ -1,3 +1,4 @@
 criar salas temáticas
 filtro usuários por tema
 criar classe temas
+alterar informações do perfil na lista, qnd selecionado
