@@ -17,6 +17,7 @@ export default function({avatar, name}) {
     let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if(SpeechRecognition !== undefined) {
         recognition = new SpeechRecognition()
+        recognition.lang = "pt-BR";
     }
 
     const [emojisOpen, setEmojiOpen] = useState(false)
@@ -48,6 +49,10 @@ export default function({avatar, name}) {
             }
 
             recognition.start(); // começar a escutar
+
+            recognition.onspeechend = () => {
+                recognition.stop();
+              }
         }
     }
 
