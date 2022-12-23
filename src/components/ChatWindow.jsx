@@ -14,17 +14,17 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function({avatar, name}) {
 
     const [emojisOpen, setEmojiOpen] = useState(false)
+    const [text, setText] = useState('')
     
 
-    const openEmojiBox = () => {
-        setEmojiOpen(true)
-    }
-    const closeEmojiBox = () => {
-        setEmojiOpen(false)
+    const handleEmojisBox = () => {
+        setEmojiOpen(!emojisOpen)
     }
 
-    const handleEmojiClick = () => {
-
+    const handleEmojiClick = (e) => {
+        // console.log('e:', e)
+        // console.log('emojiObject:', emojiObject)
+        setText(text + e.emoji)
     }
 
     
@@ -50,26 +50,35 @@ export default function({avatar, name}) {
                 </div>
             </div>
             <div className="chatWindow--body">
-                <div className="chatWindow--emojiarea" style={{height: emojisOpen ? '100%' : 0}}>
+                {emojisOpen &&
+                    <div className="chatWindow--emojiarea" style={{height: emojisOpen ? '100%' : 0}}>
                     <EmojiPicker 
                         onEmojiClick={handleEmojiClick}
                         // disableSearchBar
                         // disableSkinTonePicker
                     />
-                </div>
+                </div>}
                 <div className="chatWindow--chatmsgsarea"></div>
             </div>
             <div className="chatWindow--footer">
                 <div className="chatWindow--footer--pre">
-                    <div className="chatWindow--btn" onClick={closeEmojiBox} style={{width: emojisOpen ? '50px' : '0px', display: emojisOpen ? 'block' : 'none'}}>
+                    {/* <div className="chatWindow--btn" onClick={closeEmojiBox} style={{width: emojisOpen ? '50px' : '0px', display: emojisOpen ? 'block' : 'none'}}>
                         <CloseIcon style={{color: 'lightgray'}}/>
-                    </div>
-                    <div className="chatWindow--btn" onClick={openEmojiBox}>
-                        <TagFacesIcon style={{color: 'lightgray'}}/>
+                    </div> */}
+                    <div className="chatWindow--btn" onClick={handleEmojisBox}>
+                        <TagFacesIcon style={{color: emojisOpen? 'yellow' : 'lightgray'}}/>
                     </div>
                 </div>
                 <div className="chatWindow--footer--inputarea">
-                    <input className='chatWindow--input' placeholder='Digite sua mensagem...' type="text" name="" id="" />
+                    <input 
+                        className='chatWindow--input' 
+                        placeholder='Digite sua mensagem...' 
+                        type="text" 
+                        value={text}
+                        onChange={e => {
+                            // console.log('target:', e.target.value)
+                            setText(e.target.value)}}
+                    />
                 </div>
                 <div className="chatWindow--footer--pos">
                     <div className="chatWindow--btn">

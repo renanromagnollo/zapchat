@@ -150,13 +150,10 @@ aside.EmojiPickerReact.epr-main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 15px;
 }
 
-.chatWindow--footer--pre {
-    display: flex;
-    justify-content: flex-start;
-    /* marign: 0 15px; */
-}
+
 .chatWindow--footer--inputarea {
     flex: 1;
 }
@@ -171,6 +168,10 @@ aside.EmojiPickerReact.epr-main {
     color: #4A4A4A;
     padding-left: 15px;
     
+}
+
+.chatWindow--input input {
+    color: #F1F1F1;
 }
 .chatWindow--footer--pos {
     display: flex;

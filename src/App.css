@@ -13,7 +13,7 @@ body {
   height: 100vh;
   display: flex;
   /* background-color: #EDEDED; */
-  background: url('./assets/rain.gif');
+  background: url('./assets/nature01.gif');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
