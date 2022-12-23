@@ -25,9 +25,9 @@ export default function({user}) {
     const [text, setText] = useState('')
     const [listening, setListening] = useState(false)
     const [listMsgs, setListMsgs] = useState([
-        {author: 1, body: 'bla bla bla'}, 
-        {author: 2, body: 'bla bla bla bla bla'}, 
-        {author: 3, body: 'bla bla bla bla bla bla'}
+        {author: 1, msg: 'bla bla bla'}, 
+        {author: 2, msg: 'bla bla bla bla bla'}, 
+        {author: 3, msg: 'bla bla bla bla bla bla'}
     ])
     
 
@@ -60,6 +60,17 @@ export default function({user}) {
                 recognition.stop();
               }
         }
+    }
+
+    const sendMsg = (author, msg) => {
+         setListMsgs([
+             {
+                 author, 
+                 msg
+             },
+            ...listMsgs 
+         ])
+         setText('')
     }
 
     
@@ -131,7 +142,7 @@ export default function({user}) {
                 <div className="chatWindow--footer--pos">
                     {text 
                         ? 
-                        <div className="chatWindow--btn">
+                        <div className="chatWindow--btn" onClick={() => sendMsg(user.id, text)}>
                             <SendIcon style={{color: 'lightgray'}}/>
                         </div>
                         :
