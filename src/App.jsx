@@ -20,6 +20,11 @@ export default function App() {
     {chatId: 4, name: 'Uildisney', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyWhmZcmkHeaJotVrCWeyGeszRnqmLyw7ryH6WoagTVZxNMNN3EQP-59fMoOSqpCAscx8&usqp=CAU'},
   ])
   const [activeChat, setActiveChat] = useState({})
+  const [user, setUser] = useState({
+    id: 1,
+    avatar: '',
+    name: 'Bonieky Lacerda'
+  })
 
   return (
     <div className="app-window">
@@ -60,7 +65,7 @@ export default function App() {
       </div>
       <div className="contentarea">
         {activeChat.chatId !== undefined &&
-          <ChatWindow name={activeChat.name} avatar={activeChat.image}/>
+          <ChatWindow user={user}/>
         }
         {activeChat.chatId === undefined &&
           <ChatIntro/>

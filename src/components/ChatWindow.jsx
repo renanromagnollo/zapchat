@@ -10,8 +10,9 @@ import TagFacesIcon from '@mui/icons-material/TagFaces';
 import SendIcon from '@mui/icons-material/Send';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import CloseIcon from '@mui/icons-material/Close';
+import MessageItem from './MessageItem';
 
-export default function({avatar, name}) {
+export default function({user}) {
 
     let recognition = null;
     let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -23,6 +24,11 @@ export default function({avatar, name}) {
     const [emojisOpen, setEmojiOpen] = useState(false)
     const [text, setText] = useState('')
     const [listening, setListening] = useState(false)
+    const [listMsgs, setListMsgs] = useState([
+        {author: 1, body: 'bla bla bla'}, 
+        {author: 2, body: 'bla bla bla bla bla'}, 
+        {author: 3, body: 'bla bla bla bla bla bla'}
+    ])
     
 
     const handleEmojisBox = () => {
@@ -62,8 +68,8 @@ export default function({avatar, name}) {
         <div className='chatWindow'>
             <div className="chatWindow--header">
                 <div className="chatWindow--info">
-                    <img className="chatWindow--avatar" src={avatar} alt="avatar" />
-                    <div className="chatWindow--name">{name}</div>
+                    <img className="chatWindow--avatar" src={user.image} alt="avatar" />
+                    <div className="chatWindow--name">{user.name}</div>
                 </div>
                     <div className="chatWindow--headerbuttons">
                     <div className="chatWindow--btn">
@@ -87,7 +93,20 @@ export default function({avatar, name}) {
                         // disableSkinTonePicker
                     />
                 </div>}
-                <div className="chatWindow--chatmsgsarea"></div>
+                <div className="chatWindow--chatmsgsarea">
+                    {
+                        listMsgs.map((item, key) => {
+                            return (
+                                <MessageItem 
+                                key={key}
+                                data={item}
+                                user={user}
+                            />
+                            )
+                            
+                        })
+                    }
+                </div>
             </div>
             <div className="chatWindow--footer">
                 <div className="chatWindow--footer--pre">
