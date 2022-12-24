@@ -1,5 +1,5 @@
 import './ChatWindow.css'
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 
 import EmojiPicker from 'emoji-picker-react';
 
@@ -14,6 +14,9 @@ import MessageItem from './MessageItem';
 
 export default function({user}) {
 
+
+    
+
     let recognition = null;
     let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if(SpeechRecognition !== undefined) {
@@ -21,14 +24,46 @@ export default function({user}) {
         recognition.lang = "pt-BR";
     }
 
+    const body = useRef()
+
     const [emojisOpen, setEmojiOpen] = useState(false)
     const [text, setText] = useState('')
     const [listening, setListening] = useState(false)
     const [listMsgs, setListMsgs] = useState([
         {author: 1, msg: 'bla bla bla'}, 
         {author: 2, msg: 'bla bla bla bla bla'}, 
+        {author: 3, msg: 'bla bla bla bla bla bla'},
+        {author: 1, msg: 'bla bla bla'}, 
+        {author: 2, msg: 'bla bla bla bla bla'}, 
+        {author: 3, msg: 'bla bla bla bla bla bla'},
+        {author: 1, msg: 'bla bla bla'}, 
+        {author: 2, msg: 'bla bla bla bla bla'}, 
+        {author: 3, msg: 'bla bla bla bla bla bla'},
+        {author: 1, msg: 'bla bla bla'}, 
+        {author: 2, msg: 'bla bla bla bla bla'}, 
+        {author: 3, msg: 'bla bla bla bla bla bla'},
+        {author: 1, msg: 'bla bla bla'}, 
+        {author: 2, msg: 'bla bla bla bla bla'}, 
+        {author: 3, msg: 'bla bla bla bla bla bla'},
+        {author: 1, msg: 'bla bla bla'}, 
+        {author: 2, msg: 'bla bla bla bla bla'}, 
+        {author: 3, msg: 'bla bla bla bla bla bla'},
+        {author: 1, msg: 'bla bla bla'}, 
+        {author: 2, msg: 'bla bla bla bla bla'}, 
+        {author: 3, msg: 'bla bla bla bla bla bla'},
+        {author: 1, msg: 'bla bla bla'}, 
+        {author: 2, msg: 'bla bla bla bla bla'}, 
         {author: 3, msg: 'bla bla bla bla bla bla'}
     ])
+
+    useEffect(() => {
+        if(body.current.scrollHeight > body.current.offsetHeight) {
+            body.current.scrollTop = body.current.scrollHeight - body.current.offsetHeight
+        }
+    }, [listMsgs])
+    
+
+    
     
 
     const handleEmojisBox = () => {
@@ -62,13 +97,23 @@ export default function({user}) {
         }
     }
 
+    // const inputListenEnter = () => {
+    // const chatInputEnter = document.querySelector('#chatWindow--input')
+    // chatInputEnter.addEventListener('keyup', (event) => {
+    //     if(event.key === 'Enter') {
+    //         sendMsg(user.id, text)
+    //         chatInputEnter.removeEventListener('keyup')
+    //     }
+    // })
+    // }
+
     const sendMsg = (author, msg) => {
          setListMsgs([
+             ...listMsgs, 
              {
                  author, 
                  msg
-             },
-            ...listMsgs 
+             }
          ])
          setText('')
     }
@@ -95,7 +140,7 @@ export default function({user}) {
                         
                 </div>
             </div>
-            <div className="chatWindow--body">
+            <div ref={body} className="chatWindow--body">
                 {emojisOpen &&
                     <div className="chatWindow--emojiarea" style={{height: emojisOpen ? '100%' : 0}}>
                     <EmojiPicker 
@@ -136,7 +181,7 @@ export default function({user}) {
                         value={text}
                         onChange={e => {
                             // console.log('target:', e.target.value)
-                            setText(e.target.value)}}
+                        setText(e.target.value)}}
                     />
                 </div>
                 <div className="chatWindow--footer--pos">
