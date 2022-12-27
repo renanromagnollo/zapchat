@@ -12,6 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { getChatUsers } from './functions/users';
 import NewChat from './components/NewChat';
 import Login from './components/Login';
+import Api from './api/Api'
 
 
 export default function App() {
@@ -24,11 +25,12 @@ export default function App() {
   ])
   // const [chatlist, setChatlist] = useState(getChatUsers())
   const [activeChat, setActiveChat] = useState({})
-  const [user, setUser] = useState({
-    id: 123,
-    name: 'Renan Romagnoli',
-    avatar: 'https://place-hold.it/300x500'
-  })
+  // const [user, setUser] = useState({
+  //   id: 123,
+  //   name: 'Renan Romagnoli',
+  //   avatar: 'https://place-hold.it/300x500'
+  // })
+  const [user, setUser] = useState(null)
   const [showNewChat, setShowNewChat] = useState(false)
 
   const handleNewChat = () => {
@@ -41,7 +43,7 @@ export default function App() {
       name: u.displayName,
       avatar: u.photoURL
     }
-
+    await Api.addUser(newUser)
     setUser(newUser)
   }
 

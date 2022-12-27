@@ -2,6 +2,7 @@ import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } fr
 // import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
 import {getAnalytics} from 'firebase/analytics'
 import { initializeApp } from "firebase/app"
+import {doc, setDoc, getFirestore} from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -16,7 +17,7 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig)
 const analytics = getAnalytics(firebaseApp)
-// const db = getFirestore(firebaseApp)
+const db = getFirestore(firebaseApp)
 
 
 // const googleLogin = async () => {
@@ -43,5 +44,16 @@ export default {
     fbPopup: async () => {
         let result = await facebookLoginPopup()
         return result
+    },
+    addUser: async (u) => {
+        await setDoc(doc(db, 'users', u.id), {
+            name: u.name, 
+            avatar: u.avatar
+        }, {merge: true})
+        // await db.collection('users').doc(u.id).set({
+        //     name: u.name, 
+        //     avatar: u.avatar
+        // }, {merge: true})
+        console.log('user:', u)
     }
 }
