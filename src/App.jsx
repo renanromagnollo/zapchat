@@ -11,6 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
 import { getChatUsers } from './functions/users';
 import NewChat from './components/NewChat';
+import Login from './components/Login';
 
 
 export default function App() {
@@ -23,15 +24,25 @@ export default function App() {
   ])
   // const [chatlist, setChatlist] = useState(getChatUsers())
   const [activeChat, setActiveChat] = useState({})
-  const [user, setUser] = useState({
-    id: 1,
-    avatar: '',
-    name: 'Bonieky Lacerda'
-  })
+  const [user, setUser] = useState(null)
   const [showNewChat, setShowNewChat] = useState(false)
 
   const handleNewChat = () => {
     setShowNewChat(true)
+  }
+
+  const handleLoginData = async (u) => {
+    let newUser = {
+      id: u.uid,
+      name: u.displayName,
+      avatar: u.photoURL
+    }
+
+    setUser(newUser)
+  }
+
+  if(user === null) {
+    return <Login onReceive={handleLoginData}/>
   }
 
   return (
