@@ -23,6 +23,7 @@ const analytics = getAnalytics(firebaseApp)
 //     const provider = new GoogleAuthProvider()
 //     provider.addScope('https://www.googleapis.com/auth/cloud-platform.read-only')
 // }
+
 const provider = new FacebookAuthProvider()
 const auth = getAuth()
 

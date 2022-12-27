@@ -24,7 +24,11 @@ export default function App() {
   ])
   // const [chatlist, setChatlist] = useState(getChatUsers())
   const [activeChat, setActiveChat] = useState({})
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({
+    id: 123,
+    name: 'Renan Romagnoli',
+    avatar: 'https://place-hold.it/300x500'
+  })
   const [showNewChat, setShowNewChat] = useState(false)
 
   const handleNewChat = () => {
@@ -55,7 +59,7 @@ export default function App() {
           setShow={setShowNewChat}
         />
         <header>
-          <img className='header--avatar' src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000" alt="avatar" />
+          <img className='header--avatar' src={user.avatar} alt="avatar" />
           <div className="header--buttons">
             <div className="header--btn">
               <DonutLargeIcon style={{color: 'lightgray'}}/>
@@ -78,10 +82,15 @@ export default function App() {
         <div className="chatlist">
           {
             chatlist.map((item, key) => (
+              
               <ChatListItem 
                 key={key}
                 active={activeChat.chatId === chatlist[key].chatId}
-                onClick={() => setActiveChat(chatlist[key])}
+                onClick={() => {
+                  setActiveChat(chatlist[key])
+                  console.log('chatlistKey:', chatlist[key])
+                  }
+                }
                 data={item}
               />
             ))
@@ -89,8 +98,8 @@ export default function App() {
         </div>
       </div>
       <div className="contentarea">
-        {activeChat.chatId !== undefined &&
-          <ChatWindow user={user}/>
+        {activeChat.chatId &&
+          <ChatWindow user={activeChat}/>
         }
         {activeChat.chatId === undefined &&
           <ChatIntro/>
