@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
-// import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
+// import {collection, getDocs } from 'firebase/firestore/lite'
 import {getAnalytics} from 'firebase/analytics'
 import { initializeApp } from "firebase/app"
 import {doc, setDoc, getFirestore} from 'firebase/firestore'
