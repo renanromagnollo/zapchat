@@ -21,6 +21,7 @@ body {
 
 .sidebar {
   width: 25%;
+  position: relative;
   height: 100vh;
   max-width: 415px;
   display: flex;
@@ -95,7 +96,7 @@ header {
 
 .chatlist {
   flex: 1;
-  margin: 10px 0;
+  /* padding: 10px 0; */
   background-color: rgba(0, 0, 0, .6);
   overflow-y: auto;
 }

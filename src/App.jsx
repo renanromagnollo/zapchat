@@ -17,24 +17,17 @@ import Api from './api/Api'
 
 export default function App() {
 
-  const [chatlist, setChatlist] = useState([
-    {chatId: 1, name: 'Rolando Caio da Rocha', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0luq0mPWlgaA4UpezZkeROrrW0NMUAkqmhzNCmK5ZtqoiqoZJv5euTP-hVpbUO4HZ1M&usqp=CAU'},
-    {chatId: 2, name: 'José Filisbino', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1h7dO12Dv3VsrU4QjKj-l9eptxdk-efkp3YQOdlp0ddfGnVO2O7WmThkbD8br-St3i1o&usqp=CAU'},
-    {chatId: 3, name: 'Frank de Boer', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJwVGegGrdsn81S_ocY4pGGssZ29-KIBi4pvYJ2djen4tpubF4hE-pJXYyDvkTsETyrjk&usqp=CAU'},
-    {chatId: 4, name: 'Uildisney', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyWhmZcmkHeaJotVrCWeyGeszRnqmLyw7ryH6WoagTVZxNMNN3EQP-59fMoOSqpCAscx8&usqp=CAU'},
-  ])
-  // const [chatlist, setChatlist] = useState(getChatUsers())
+  const [chatlist, setChatlist] = useState([])
   const [activeChat, setActiveChat] = useState({})
-  // const [user, setUser] = useState({
-  //   id: 123,
-  //   name: 'Renan Romagnoli',
-  //   avatar: 'https://place-hold.it/300x500'
-  // })
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({
+    id: 'mJAjOvdhyBRCjRGVr5eRTYZccMM2',
+    name: 'Renan',
+    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTiLNEGdTOwt-Gr0YojoXAnYRtB3Hu3XAhvQ&usqp=CAU'
+  })
   const [showNewChat, setShowNewChat] = useState(false)
 
   const handleNewChat = () => {
-    setShowNewChat(true)
+    setShowNewChat(!showNewChat)
   }
 
   const handleLoginData = async (u) => {
@@ -54,12 +47,7 @@ export default function App() {
   return (
     <div className="app-window">
       <div className="sidebar">
-        <NewChat 
-          chatlist={chatlist}
-          user={user}
-          show={showNewChat}
-          setShow={setShowNewChat}
-        />
+        
         <header>
           <img className='header--avatar' src={user.avatar} alt="avatar" />
           <div className="header--buttons">
@@ -75,12 +63,19 @@ export default function App() {
           </div>
           
         </header>
+        
         <div className="search">
           <div className="search--input">
             <SearchIcon fontSize='small' style={{color: '#919191'}}/>
             <input type="search" placeholder='Procurar ou começar nova conversa'/>
           </div>
         </div>
+        <NewChat 
+          chatlist={chatlist}
+          user={user}
+          show={showNewChat}
+          setShow={setShowNewChat}
+        />
         <div className="chatlist">
           {
             chatlist.map((item, key) => (

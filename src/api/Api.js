@@ -2,7 +2,7 @@ import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } fr
 // import {collection, getDocs } from 'firebase/firestore/lite'
 import {getAnalytics} from 'firebase/analytics'
 import { initializeApp } from "firebase/app"
-import {doc, setDoc, getFirestore} from 'firebase/firestore'
+import {collection, doc, query, getDoc, setDoc, getFirestore, getDocs} from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -50,10 +50,57 @@ export default {
             name: u.name, 
             avatar: u.avatar
         }, {merge: true})
+        // console.log('user:', u)
         // await db.collection('users').doc(u.id).set({
         //     name: u.name, 
         //     avatar: u.avatar
         // }, {merge: true})
-        console.log('user:', u)
+    },
+    getContactList: async (userId) => {
+        let list = []
+        // let users = await collection(db, 'users')
+        const q = query(collection(db, 'users'))
+        const queryUsers = await getDocs(q)
+
+        queryUsers.forEach(result => {
+            let data = result.data()
+            console.log('user', data)
+            if (result.id !== userId) {
+                list.push({
+                    id: result.id,
+                    name: data.name,
+                    avatar: data.avatar
+                })
+            }
+        })
+        console.log('list:', list)
+        return list
+
+        // if (queryUsers.exists()) {
+        //     console.log('users:', users.data())
+        //     let data = users.data()
+
+        //     if (data.id !== userId) {
+        //         list.push({
+        //             id: data.id,
+        //             name: data.name,
+        //             avatar: data.avatar
+        //         })
+        //     }
+        // } else {
+        //     console.log('users não encontrados')
+        // }
+        // console.log('dataGetContactList:', data)
+        // data.forEach(result => {
+        //     let data = result.data()
+
+        //     if(data.id !== userId) { // se o usuário não for eu, é acrescentado na lista
+        //         list.push({
+        //             id: data.id,
+        //             name: data.name,
+        //             avatar: data.avatar
+        //         })
+        //     }
+        // })
     }
 }
