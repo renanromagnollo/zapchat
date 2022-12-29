@@ -4,7 +4,7 @@ import './NewChat.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Api from '../api/Api';
 
-export default function({user, chatlist, show, setShow, newChatList}) {
+export default function({user, chatlist, show, setShow, newChatList, selectedChat}) {
 
     const [signedList, setSignedList] = useState([])
 
@@ -30,9 +30,18 @@ export default function({user, chatlist, show, setShow, newChatList}) {
         let list = chatlist
         console.log('chatlist: ', list)
         Api.addNewChat(user, user2)
-        list.push(user2)
+        list.push({
+            chatId: user2.id,
+            avatar: user2.avatar,
+            name: user2.name
+        })
         // setNewChatlist(list)
-        // newChatList(list)
+        newChatList(list)
+        selectedChat({
+            avatar: user2.avatar,
+            chatId: user2.id,
+            name: user2.name
+        })
         handleClose()
     }
 
@@ -51,9 +60,11 @@ export default function({user, chatlist, show, setShow, newChatList}) {
             <div className="newChat--list">
                 {signedList?.map((item, key) => {
                     return (
-                        <div onClick={()=>addNewChat(item)} className="newChat--item" key={key}>
-                            <img className='newChat--itemavatar' src={item.avatar} alt="" />
-                            <div className="newChat--itemname">{item.name}</div>
+                        <div onClick={()=>{
+                            addNewChat(item)
+                        }} className="newChat--item" key={key}>
+                        <img className='newChat--itemavatar' src={item.avatar} alt="" />
+                        <div className="newChat--itemname">{item.name}</div>
                         </div>
                     )
                 })}

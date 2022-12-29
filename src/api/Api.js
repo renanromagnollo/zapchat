@@ -89,16 +89,16 @@ export default {
         await updateDoc(dataUser1, {
             chats: arrayUnion({
                 chatId: newChat.id, 
-                title: user2.name,
-                image: user2.avatar,
+                name: user2.name,
+                avatar: user2.avatar,
                 with: user2.id
             })
         })
         await updateDoc(dataUser2, {
             chats: arrayUnion({
                 chatId: newChat.id, 
-                title: user1.name,
-                image: user1.avatar,
+                name: user1.name,
+                avatar: user1.avatar,
                 with: user1.id
             })
         })

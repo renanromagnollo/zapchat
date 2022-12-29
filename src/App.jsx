@@ -29,6 +29,7 @@ export default function App() {
       avatar: 'https://png.pngtree.com/png-vector/20190625/ourlarge/pngtree-business-male-user-avatar-vector-png-image_1511454.jpg'
     }
   ])
+  const [newChat, setNewChat] = useState(null)
   const [activeChat, setActiveChat] = useState({})
   const [user, setUser] = useState({
     id: 'mJAjOvdhyBRCjRGVr5eRTYZccMM2',
@@ -89,10 +90,12 @@ export default function App() {
           </div>
         </div>
         <NewChat 
-          // chatlist={chatlist}
+          chatlist={chatlist}
           user={user}
           show={showNewChat}
           setShow={setShowNewChat}
+          newChatList={newChatList => setChatlist(newChatList)}
+          selectedChat={newChat => setActiveChat(newChat)}
           />
         <div className="chatlist">
           {
@@ -100,7 +103,6 @@ export default function App() {
             (
               <ChatListItem 
                   data={item}
-                  // newChatList={newChatList => setChatlist(newChatList)}
                   key={key}
                   active={activeChat.chatId === chatlist[key].chatId}
                   onClick={() => {
