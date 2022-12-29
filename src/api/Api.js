@@ -1,8 +1,8 @@
 import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
 // import {collection, getDocs } from 'firebase/firestore/lite'
 import {getAnalytics} from 'firebase/analytics'
-import { initializeApp } from "firebase/app"
-import {collection, doc, query, getDoc, setDoc, getFirestore, getDocs} from 'firebase/firestore'
+import { firebase, initializeApp } from "firebase/app"
+import {getDatabase, ref, updateDoc, collection, doc, query, getDoc, setDoc, getFirestore, getDocs, addDoc, FieldValue, Firestore, arrayUnion} from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -75,32 +75,94 @@ export default {
         })
         console.log('list:', list)
         return list
+    },
+    
+    addNewChat: async (user1, user2) => {
+        let newChat = await addDoc(collection(db, 'chats'), {
+            messages: [],
+            users:[user1.id, user2.id]
+        }) 
+        // await setDoc(doc(db, 'chats'), {
+        //     messages: [],
+        //     users:[user1.id, user2.id]
+        // }) 
+        const dataUser1 = doc(db, 'users', user1.id)
+        const dataUser2 = doc(db, 'users', user2.id)
 
-        // if (queryUsers.exists()) {
-        //     console.log('users:', users.data())
-        //     let data = users.data()
-
-        //     if (data.id !== userId) {
-        //         list.push({
-        //             id: data.id,
-        //             name: data.name,
-        //             avatar: data.avatar
-        //         })
-        //     }
-        // } else {
-        //     console.log('users não encontrados')
-        // }
-        // console.log('dataGetContactList:', data)
-        // data.forEach(result => {
-        //     let data = result.data()
-
-        //     if(data.id !== userId) { // se o usuário não for eu, é acrescentado na lista
-        //         list.push({
-        //             id: data.id,
-        //             name: data.name,
-        //             avatar: data.avatar
-        //         })
-        //     }
+        await updateDoc(dataUser1, {
+            chats: arrayUnion({
+                chatId: newChat.id, 
+                title: user2.name,
+                image: user2.avatar,
+                with: user2.id
+            })
+        })
+        await updateDoc(dataUser2, {
+            chats: arrayUnion({
+                chatId: newChat.id, 
+                title: user1.name,
+                image: user1.avatar,
+                with: user1.id
+            })
+        })
+        //     chats: FieldValue.arrayUnion({
+        //         chatId: newChat.id, 
+        //         title: user1.name,
+        //         image: user1.avatar,
+        //         with: user1.id
+        //     }) 
         // })
+        // await updateDoc(dataUser1, {
+        //     chats: FieldValue.arrayUnion({
+        //         chatId: newChat.id, 
+        //         title: user2.name,
+        //         image: user2.avatar,
+        //         with: user2.id
+        //     }) 
+        // })
+
+        // await setDoc(doc(db, 'users', user1.id), {
+        //     chats: [
+        //         {
+        //             chatId: newChat.id, 
+        //             title: user2.name,
+        //             image: user2.avatar,
+        //             with: user2.id
+        //         }]
+               
+            
+            // chats: firebaseApp.firestore.FieldValue.arrayUnion({
+            //     chatId: newChat.id, 
+            //     title: user2.name,
+            //     image: user2.avatar,
+            //     with: user2.id
+            // })
+        // }, {merge: true})
+
+        // await setDoc(doc(db, 'users', user2.id), {
+        //     chats:  
+        //         {
+        //             chatId: newChat.id, 
+        //             title: user1.name,
+        //             image: user1.avatar,
+        //             with: user1.id
+        //         }
+            
+            // chats: firebaseApp.firestore.FieldValue.arrayUnion({
+            //     chatId: newChat.id, 
+            //     title: user2.name,
+            //     image: user2.avatar,
+            //     with: user2.id
+            // })
+            // }, {merge: true})
+        
+        // await setDoc(doc(db, 'users', user2.id), {
+        //     chats: firebaseApp.firestore.FieldValue.arrayUnion({
+        //         chatId: newChat.id, 
+        //         title: user1.name,
+        //         image: user1.avatar,
+        //         with: user1.id
+        //     })
+        // }, {merge: true})
     }
 }

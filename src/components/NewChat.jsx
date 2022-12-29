@@ -21,6 +21,11 @@ export default function({user, chatlist, show, setShow}) {
         getList()
     }, [user])
 
+    const addNewChat = (user2) => {
+        Api.addNewChat(user, user2)
+        handleClose()
+    }
+
     const handleClose = () => {
         setShow(false)
     }
@@ -36,7 +41,7 @@ export default function({user, chatlist, show, setShow}) {
             <div className="newChat--list">
                 {contacstList?.map((item, key) => {
                     return (
-                        <div className="newChat--item" key={key}>
+                        <div onClick={()=>addNewChat(item)} className="newChat--item" key={key}>
                             <img className='newChat--itemavatar' src={item.avatar} alt="" />
                             <div className="newChat--itemname">{item.name}</div>
                         </div>
