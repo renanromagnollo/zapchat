@@ -124,7 +124,7 @@ export default function({user}) {
         <div className='chatWindow'>
             <div className="chatWindow--header">
                 <div className="chatWindow--info">
-                    <img className="chatWindow--avatar" src={user.image} alt="avatar" />
+                    <img className="chatWindow--avatar" src={user.avatar} alt="avatar" />
                     <div className="chatWindow--name">{user.name}</div>
                 </div>
                     <div className="chatWindow--headerbuttons">

@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import ChatListItem from './components/ChatListItem';
 import ChatIntro from './components/ChatIntro';
@@ -17,7 +17,18 @@ import Api from './api/Api'
 
 export default function App() {
 
-  const [chatlist, setChatlist] = useState([])
+  const [chatlist, setChatlist] = useState([
+    {
+      chatId: 1,
+      name: 'Fulano1',
+      avatar: 'http://ambiel.adv.br/wp-content/uploads/2021/07/avatar-user-1.jpg'
+    },
+    {
+      chatId: 2,
+      name: 'Fulano2',
+      avatar: 'https://png.pngtree.com/png-vector/20190625/ourlarge/pngtree-business-male-user-avatar-vector-png-image_1511454.jpg'
+    }
+  ])
   const [activeChat, setActiveChat] = useState({})
   const [user, setUser] = useState({
     id: 'mJAjOvdhyBRCjRGVr5eRTYZccMM2',
@@ -25,6 +36,13 @@ export default function App() {
     avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTiLNEGdTOwt-Gr0YojoXAnYRtB3Hu3XAhvQ&usqp=CAU'
   })
   const [showNewChat, setShowNewChat] = useState(false)
+
+  // useEffect(()=> {
+  //   if(user !== null) {
+  //     let unsub = Api.onChatList(user.id, setChatlist)
+  //     return unsub
+  //   }
+  // },[user])
 
   const handleNewChat = () => {
     setShowNewChat(!showNewChat)
@@ -71,26 +89,28 @@ export default function App() {
           </div>
         </div>
         <NewChat 
-          chatlist={chatlist}
+          // chatlist={chatlist}
           user={user}
           show={showNewChat}
           setShow={setShowNewChat}
-        />
+          />
         <div className="chatlist">
           {
-            chatlist.map((item, key) => (
-              
+            chatlist.map((item, key) => 
+            (
               <ChatListItem 
-                key={key}
-                active={activeChat.chatId === chatlist[key].chatId}
-                onClick={() => {
-                  setActiveChat(chatlist[key])
-                  console.log('chatlistKey:', chatlist[key])
+                  data={item}
+                  // newChatList={newChatList => setChatlist(newChatList)}
+                  key={key}
+                  active={activeChat.chatId === chatlist[key].chatId}
+                  onClick={() => {
+                    setActiveChat(chatlist[key])
+                    console.log('chatlistKey:', chatlist[key])
+                    }
                   }
-                }
-                data={item}
-              />
-            ))
+                />
+              )
+            )
           }
         </div>
       </div>

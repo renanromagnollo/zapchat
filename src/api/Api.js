@@ -2,7 +2,7 @@ import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, getAuth } fr
 // import {collection, getDocs } from 'firebase/firestore/lite'
 import {getAnalytics} from 'firebase/analytics'
 import { firebase, initializeApp } from "firebase/app"
-import {getDatabase, ref, updateDoc, collection, doc, query, getDoc, setDoc, getFirestore, getDocs, addDoc, FieldValue, Firestore, arrayUnion} from 'firebase/firestore'
+import {onSnapshot, getDatabase, ref, updateDoc, collection, doc, query, getDoc, setDoc, getFirestore, getDocs, addDoc, FieldValue, Firestore, arrayUnion} from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -56,7 +56,7 @@ export default {
         //     avatar: u.avatar
         // }, {merge: true})
     },
-    getContactList: async (userId) => {
+    getSignedList: async (userId) => {
         let list = []
         // let users = await collection(db, 'users')
         const q = query(collection(db, 'users'))
@@ -82,10 +82,7 @@ export default {
             messages: [],
             users:[user1.id, user2.id]
         }) 
-        // await setDoc(doc(db, 'chats'), {
-        //     messages: [],
-        //     users:[user1.id, user2.id]
-        // }) 
+
         const dataUser1 = doc(db, 'users', user1.id)
         const dataUser2 = doc(db, 'users', user2.id)
 
@@ -105,64 +102,15 @@ export default {
                 with: user1.id
             })
         })
-        //     chats: FieldValue.arrayUnion({
-        //         chatId: newChat.id, 
-        //         title: user1.name,
-        //         image: user1.avatar,
-        //         with: user1.id
-        //     }) 
-        // })
-        // await updateDoc(dataUser1, {
-        //     chats: FieldValue.arrayUnion({
-        //         chatId: newChat.id, 
-        //         title: user2.name,
-        //         image: user2.avatar,
-        //         with: user2.id
-        //     }) 
-        // })
-
-        // await setDoc(doc(db, 'users', user1.id), {
-        //     chats: [
-        //         {
-        //             chatId: newChat.id, 
-        //             title: user2.name,
-        //             image: user2.avatar,
-        //             with: user2.id
-        //         }]
-               
-            
-            // chats: firebaseApp.firestore.FieldValue.arrayUnion({
-            //     chatId: newChat.id, 
-            //     title: user2.name,
-            //     image: user2.avatar,
-            //     with: user2.id
-            // })
-        // }, {merge: true})
-
-        // await setDoc(doc(db, 'users', user2.id), {
-        //     chats:  
-        //         {
-        //             chatId: newChat.id, 
-        //             title: user1.name,
-        //             image: user1.avatar,
-        //             with: user1.id
-        //         }
-            
-            // chats: firebaseApp.firestore.FieldValue.arrayUnion({
-            //     chatId: newChat.id, 
-            //     title: user2.name,
-            //     image: user2.avatar,
-            //     with: user2.id
-            // })
-            // }, {merge: true})
-        
-        // await setDoc(doc(db, 'users', user2.id), {
-        //     chats: firebaseApp.firestore.FieldValue.arrayUnion({
-        //         chatId: newChat.id, 
-        //         title: user1.name,
-        //         image: user1.avatar,
-        //         with: user1.id
-        //     })
-        // }, {merge: true})
+    },
+    onChatList: (userId, setChatList) => {
+        return onSnapshot(doc(db, 'users', userId), (doc) => {
+            if(doc.exists) {
+                let data = doc.data()
+                if(data.chats) {
+                    setChatList(data.chats)
+                }
+            }
+        })
     }
 }

@@ -4,25 +4,35 @@ import './NewChat.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Api from '../api/Api';
 
-export default function({user, chatlist, show, setShow}) {
+export default function({user, chatlist, show, setShow, newChatList}) {
 
-    const [contacstList, setContacstList] = useState([])
+    const [signedList, setSignedList] = useState([])
 
     const leftBody = useRef()
 
     useEffect(() => {
         const getList = async () => {
             if(user !== null) {
-                let results = await Api.getContactList(user.id)
+                let results = await Api.getSignedList(user.id)
                 console.log('results:', results)
-                setContacstList(results)
+                setSignedList(results)
             }
         }
         getList()
     }, [user])
 
+    // const setNewChatlist = (newList) => {
+    //     console.log('newList: ', newList)
+    //     newChatList(newList)
+    // }
+
     const addNewChat = (user2) => {
+        let list = chatlist
+        console.log('chatlist: ', list)
         Api.addNewChat(user, user2)
+        list.push(user2)
+        // setNewChatlist(list)
+        // newChatList(list)
         handleClose()
     }
 
@@ -39,7 +49,7 @@ export default function({user, chatlist, show, setShow}) {
                 <div className="newChat--headtitle">Nova Conversa</div>
             </div>
             <div className="newChat--list">
-                {contacstList?.map((item, key) => {
+                {signedList?.map((item, key) => {
                     return (
                         <div onClick={()=>addNewChat(item)} className="newChat--item" key={key}>
                             <img className='newChat--itemavatar' src={item.avatar} alt="" />
