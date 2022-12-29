@@ -17,19 +17,20 @@ import Api from './api/Api'
 
 export default function App() {
 
-  const [chatlist, setChatlist] = useState([
-    {
-      chatId: 1,
-      name: 'Fulano1',
-      avatar: 'http://ambiel.adv.br/wp-content/uploads/2021/07/avatar-user-1.jpg'
-    },
-    {
-      chatId: 2,
-      name: 'Fulano2',
-      avatar: 'https://png.pngtree.com/png-vector/20190625/ourlarge/pngtree-business-male-user-avatar-vector-png-image_1511454.jpg'
-    }
-  ])
-  const [newChat, setNewChat] = useState(null)
+  // const [chatlist, setChatlist] = useState([
+  //   {
+  //     chatId: 1,
+  //     name: 'Fulano1',
+  //     avatar: 'http://ambiel.adv.br/wp-content/uploads/2021/07/avatar-user-1.jpg'
+  //   },
+  //   {
+  //     chatId: 2,
+  //     name: 'Fulano2',
+  //     avatar: 'https://png.pngtree.com/png-vector/20190625/ourlarge/pngtree-business-male-user-avatar-vector-png-image_1511454.jpg'
+  //   }
+  // ])
+  const [chatlist, setChatlist] = useState([])
+  // const [newChat, setNewChat] = useState(null)
   const [activeChat, setActiveChat] = useState({})
   const [user, setUser] = useState({
     id: 'mJAjOvdhyBRCjRGVr5eRTYZccMM2',
