@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {memo} from 'react'
 import './index.css'
 
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-export function Header({user, handleNewChat}) {
+function Header({user, handleNewChat}) {
     return (
         <header>
           <img className='header--avatar' src={user.avatar} alt="avatar" />
@@ -24,3 +24,5 @@ export function Header({user, handleNewChat}) {
         </header>
     )
 }
+
+export default memo(Header)

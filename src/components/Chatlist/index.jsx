@@ -1,9 +1,9 @@
-import React from  'react'
+import React, { memo } from  'react'
 import ChatListItem from '../ChatListItem'
 import { Loader } from '../Loader'
 import './index.css'
 
-export function Chatlist({chatlist, activeChat, selectedChat}) {
+function Chatlist({chatlist, activeChat, selectedChat}) {
     return (
         <div className="chatlist">
           { chatlist
@@ -26,3 +26,5 @@ export function Chatlist({chatlist, activeChat, selectedChat}) {
         </div>
     )
 } 
+
+export default memo(Chatlist)

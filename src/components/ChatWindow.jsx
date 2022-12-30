@@ -1,5 +1,5 @@
 import './ChatWindow.css'
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, memo} from 'react'
 
 import EmojiPicker from 'emoji-picker-react';
 
@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import MessageItem from './MessageItem';
 import Api from '../api/Api';
 
-export default function({chat, user}) {
+export default memo(function({chat, user}) {
 
     let recognition = null;
     let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -220,4 +220,4 @@ export default function({chat, user}) {
             </div>
         </div>
     )
-}
+})

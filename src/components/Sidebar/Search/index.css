@@ -1,0 +1,26 @@
+.search {
+    background-color: rgba(0, 0, 0, .7);
+    /* border-bottom: 2px solid rgba(255, 255, 255, .3); */
+    /* border-radius: 10px; */
+    padding: 15px 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .search--input {
+    background-color: #F1F1F1;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    opacity: .8;
+  }
+  
+  .search--input input {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    margin-left: 10px;
+  }

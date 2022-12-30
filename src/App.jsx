@@ -6,14 +6,14 @@ import ChatIntro from './components/ChatIntro';
 import ChatWindow from './components/ChatWindow';
 
 
-import SearchIcon from '@mui/icons-material/Search';
 import { getChatUsers } from './functions/users';
 import NewChat from './components/NewChat';
 import Login from './components/Login';
 import Api from './api/Api'
 import { Loader } from './components/Loader';
-import { Chatlist } from './components/Chatlist';
-import { Header } from './components/Sidebar/Header';
+import Chatlist from './components/Chatlist';
+import Header from './components/Sidebar/Header';
+import Search from './components/Sidebar/Search';
 
 
 export default function App() {
@@ -71,12 +71,7 @@ export default function App() {
         
         <Header user={user} handleNewChat={handleNewChat}/>
         
-        <div className="search">
-          <div className="search--input">
-            <SearchIcon fontSize='small' style={{color: '#919191'}}/>
-            <input type="search" placeholder='Procurar ou começar nova conversa'/>
-          </div>
-        </div>
+        <Search />
         <NewChat 
           chatlist={chatlist}
           user={user}
