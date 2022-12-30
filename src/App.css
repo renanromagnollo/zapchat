@@ -31,42 +31,7 @@ body {
   background-color: rgba(0, 0, 0, .3);
 }
 
-header {
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 15px;
-  background-color: rgba(0, 0, 0, .3);
-  /* background-color: lightgray; */
 
-}
-.header--avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  cursor: ponter;
-}
-.header--buttons {
-  display: flex;
-  justify-content: spance-between;
-}
-.header--btn {
-  width: 40px;
-  height: 40px;
-  margin: 0 2px;
-  padding: 5px;  
-  display: flex;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: ease-in .3s;
-  /* background-color: darkgray; */
-}
-.header--btn:hover {
-  box-shadow: 0px 0px 7px 2px lightblue;
-}
 .search {
   background-color: rgba(0, 0, 0, .7);
   /* border-bottom: 2px solid rgba(255, 255, 255, .3); */
@@ -94,24 +59,7 @@ header {
   margin-left: 10px;
 }
 
-.chatlist {
-  height: 100%;
-  /* flex: 1; */
-  display: flex;
-  flex-direction: column;
-  /* padding: 10px 0; */
-  background-color: rgba(0, 0, 0, .6);
-  overflow-y: auto;
-}
 
-.chatlist::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-.chatlist::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, .2);
-}
 
 .contentarea {
   /* background-color: blue; */

@@ -5,14 +5,15 @@ import ChatListItem from './components/ChatListItem';
 import ChatIntro from './components/ChatIntro';
 import ChatWindow from './components/ChatWindow';
 
-import DonutLargeIcon from '@mui/icons-material/DonutLarge';
-import ChatIcon from '@mui/icons-material/Chat';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 import SearchIcon from '@mui/icons-material/Search';
 import { getChatUsers } from './functions/users';
 import NewChat from './components/NewChat';
 import Login from './components/Login';
 import Api from './api/Api'
+import { Loader } from './components/Loader';
+import { Chatlist } from './components/Chatlist';
+import { Header } from './components/Sidebar/Header';
 
 
 export default function App() {
@@ -68,21 +69,7 @@ export default function App() {
     <div className="app-window">
       <div className="sidebar">
         
-        <header>
-          <img className='header--avatar' src={user.avatar} alt="avatar" />
-          <div className="header--buttons">
-            <div className="header--btn">
-              <DonutLargeIcon style={{color: 'lightgray'}}/>
-            </div>
-            <div className="header--btn" onClick={handleNewChat}>
-              <ChatIcon style={{color: 'lightgray'}}/>
-            </div>
-            <div className="header--btn">
-              <MoreVertIcon style={{color: 'lightgray'}}/>
-            </div>
-          </div>
-          
-        </header>
+        <Header user={user} handleNewChat={handleNewChat}/>
         
         <div className="search">
           <div className="search--input">
@@ -97,25 +84,12 @@ export default function App() {
           setShow={setShowNewChat}
           newChatList={newChatList => setChatlist(newChatList)}
           selectedChat={newChat => setActiveChat(newChat)}
-          />
-        <div className="chatlist">
-          {
-            chatlist.map((item, key) => 
-              (
-                <ChatListItem 
-                    data={item}
-                    key={key}
-                    active={activeChat.chatId === chatlist[key].chatId}
-                    onClick={() => {
-                      setActiveChat(chatlist[key])
-                      console.log('chatlistKey:', chatlist[key])
-                      }
-                    }
-                />
-              )
-            )
-          }
-        </div>
+        />
+        <Chatlist 
+          chatlist={chatlist} 
+          activeChat={activeChat} 
+          selectedChat={activeChat => setActiveChat(activeChat)} 
+        />
       </div>
       <div className="contentarea">
         {activeChat.chatId &&

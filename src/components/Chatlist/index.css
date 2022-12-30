@@ -1,0 +1,19 @@
+.chatlist {
+    height: 100%;
+    /* flex: 1; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flexstart;
+    /* padding: 10px 0; */
+    background-color: rgba(0, 0, 0, .6);
+    overflow-y: auto;
+  }
+  
+  .chatlist::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .chatlist::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .2);
+  }
