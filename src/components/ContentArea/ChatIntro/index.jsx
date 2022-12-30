@@ -1,5 +1,5 @@
 import React from 'react';
-import './ChatIntro.css';
+import './index.css';
 
 export default function() {
     return (

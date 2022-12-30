@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './ChatListItem.css';
+import './index.css';
 
 export default ({onClick, data, active}) => {
 

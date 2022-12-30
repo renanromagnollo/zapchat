@@ -1,5 +1,5 @@
-import './ChatWindow.css'
 import React, {useState, useEffect, useRef, memo} from 'react'
+import './index.css'
 
 import EmojiPicker from 'emoji-picker-react';
 
@@ -11,7 +11,7 @@ import SendIcon from '@mui/icons-material/Send';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import CloseIcon from '@mui/icons-material/Close';
 import MessageItem from './MessageItem';
-import Api from '../api/Api';
+import Api from '../../../api/Api';
 
 export default memo(function({chat, user}) {
 

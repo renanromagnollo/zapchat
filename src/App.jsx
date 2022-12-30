@@ -1,19 +1,19 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
-import ChatListItem from './components/ChatListItem';
-import ChatIntro from './components/ChatIntro';
-import ChatWindow from './components/ChatWindow';
+import ChatlistItem from './components/Chatlist/ChatlistItem';
+
 
 
 import { getChatUsers } from './functions/users';
-import NewChat from './components/NewChat';
+import NewChat from './components/Sidebar/NewChat';
 import Login from './components/Login';
 import Api from './api/Api'
 import { Loader } from './components/Loader';
 import Chatlist from './components/Chatlist';
 import Header from './components/Sidebar/Header';
 import Search from './components/Sidebar/Search';
+import ContentArea from './components/ContentArea';
 
 
 export default function App() {
@@ -67,11 +67,10 @@ export default function App() {
 
   return (
     <div className="app-window">
-      <div className="sidebar">
-        
+      <div className="sidebar">    
         <Header user={user} handleNewChat={handleNewChat}/>
-        
         <Search />
+
         <NewChat 
           chatlist={chatlist}
           user={user}
@@ -86,14 +85,7 @@ export default function App() {
           selectedChat={activeChat => setActiveChat(activeChat)} 
         />
       </div>
-      <div className="contentarea">
-        {activeChat.chatId &&
-          <ChatWindow chat={activeChat} user={user}/>
-        }
-        {activeChat.chatId === undefined &&
-          <ChatIntro/>
-        }
-      </div>
+      <ContentArea activeChat={activeChat} user={user}/>
     </div>
   )
 }

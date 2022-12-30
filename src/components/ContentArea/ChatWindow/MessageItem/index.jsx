@@ -1,5 +1,5 @@
 import React from 'react'
-import './MessageItem.css'
+import './index.css'
 
 export default function({data, user}) {
     return (

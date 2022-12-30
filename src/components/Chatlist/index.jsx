@@ -1,5 +1,5 @@
 import React, { memo } from  'react'
-import ChatListItem from '../ChatListItem'
+import ChatlistItem from './ChatlistItem'
 import { Loader } from '../Loader'
 import './index.css'
 
@@ -9,7 +9,7 @@ function Chatlist({chatlist, activeChat, selectedChat}) {
           { chatlist
             ? chatlist.map((item, key) => 
                 (
-                  <ChatListItem 
+                  <ChatlistItem 
                       data={item}
                       key={key}
                       active={activeChat.chatId === chatlist[key].chatId}

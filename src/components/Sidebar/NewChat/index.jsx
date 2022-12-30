@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
-import './NewChat.css'
+import './index.css'
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Api from '../api/Api';
+import Api from '../../../api/Api';
 
 export default function({user, chatlist, show, setShow, newChatList, selectedChat}) {
 
