@@ -39,12 +39,12 @@ export default function App() {
   })
   const [showNewChat, setShowNewChat] = useState(false)
 
-  // useEffect(()=> {
-  //   if(user !== null) {
-  //     let unsub = Api.onChatList(user.id, setChatlist)
-  //     return unsub
-  //   }
-  // },[user])
+  useEffect(()=> {
+    if(user !== null) {
+      let unsub = Api.onChatList(user.id, setChatlist)
+      return unsub
+    }
+  },[user])
 
   const handleNewChat = () => {
     setShowNewChat(!showNewChat)
@@ -101,16 +101,16 @@ export default function App() {
         <div className="chatlist">
           {
             chatlist.map((item, key) => 
-            (
-              <ChatListItem 
-                  data={item}
-                  key={key}
-                  active={activeChat.chatId === chatlist[key].chatId}
-                  onClick={() => {
-                    setActiveChat(chatlist[key])
-                    console.log('chatlistKey:', chatlist[key])
+              (
+                <ChatListItem 
+                    data={item}
+                    key={key}
+                    active={activeChat.chatId === chatlist[key].chatId}
+                    onClick={() => {
+                      setActiveChat(chatlist[key])
+                      console.log('chatlistKey:', chatlist[key])
+                      }
                     }
-                  }
                 />
               )
             )
@@ -119,7 +119,7 @@ export default function App() {
       </div>
       <div className="contentarea">
         {activeChat.chatId &&
-          <ChatWindow user={activeChat}/>
+          <ChatWindow chat={activeChat} user={user}/>
         }
         {activeChat.chatId === undefined &&
           <ChatIntro/>
@@ -128,3 +128,4 @@ export default function App() {
     </div>
   )
 }
+

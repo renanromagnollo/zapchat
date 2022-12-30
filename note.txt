@@ -5,3 +5,4 @@ alterar informações do perfil na lista, qnd selecionado
 corrigir inserção de referencias dos chats aos usuarios
 NewChat pega todos os usuários do BD
 ChatList pega só os selecionados
+inserir lastMsg e lstMsgData na lista de chat do user 

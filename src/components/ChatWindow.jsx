@@ -11,11 +11,9 @@ import SendIcon from '@mui/icons-material/Send';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import CloseIcon from '@mui/icons-material/Close';
 import MessageItem from './MessageItem';
+import Api from '../api/Api';
 
-export default function({user}) {
-
-
-    
+export default function({chat, user}) {
 
     let recognition = null;
     let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -26,45 +24,64 @@ export default function({user}) {
 
     const body = useRef()
 
+    
+
     const [emojisOpen, setEmojiOpen] = useState(false)
     const [text, setText] = useState('')
     const [listening, setListening] = useState(false)
-    const [listMsgs, setListMsgs] = useState([
-        {author: 1, msg: 'bla bla bla'}, 
-        {author: 2, msg: 'bla bla bla bla bla'}, 
-        {author: 3, msg: 'bla bla bla bla bla bla'},
-        {author: 1, msg: 'bla bla bla'}, 
-        {author: 2, msg: 'bla bla bla bla bla'}, 
-        {author: 3, msg: 'bla bla bla bla bla bla'},
-        {author: 1, msg: 'bla bla bla'}, 
-        {author: 2, msg: 'bla bla bla bla bla'}, 
-        {author: 3, msg: 'bla bla bla bla bla bla'},
-        {author: 1, msg: 'bla bla bla'}, 
-        {author: 2, msg: 'bla bla bla bla bla'}, 
-        {author: 3, msg: 'bla bla bla bla bla bla'},
-        {author: 1, msg: 'bla bla bla'}, 
-        {author: 2, msg: 'bla bla bla bla bla'}, 
-        {author: 3, msg: 'bla bla bla bla bla bla'},
-        {author: 1, msg: 'bla bla bla'}, 
-        {author: 2, msg: 'bla bla bla bla bla'}, 
-        {author: 3, msg: 'bla bla bla bla bla bla'},
-        {author: 1, msg: 'bla bla bla'}, 
-        {author: 2, msg: 'bla bla bla bla bla'}, 
-        {author: 3, msg: 'bla bla bla bla bla bla'},
-        {author: 1, msg: 'bla bla bla'}, 
-        {author: 2, msg: 'bla bla bla bla bla'}, 
-        {author: 3, msg: 'bla bla bla bla bla bla'}
-    ])
+    const [chatMsgs, setChatMsgs] = useState([])
+    // const [listMsgs, setListMsgs] = useState([
+    //     {author: 1, msg: 'bla bla bla'}, 
+    //     {author: 2, msg: 'bla bla bla bla bla'}, 
+    //     {author: 3, msg: 'bla bla bla bla bla bla'},
+    //     {author: 1, msg: 'bla bla bla'}, 
+    //     {author: 2, msg: 'bla bla bla bla bla'}, 
+    //     {author: 3, msg: 'bla bla bla bla bla bla'},
+    //     {author: 1, msg: 'bla bla bla'}, 
+    //     {author: 2, msg: 'bla bla bla bla bla'}, 
+    //     {author: 3, msg: 'bla bla bla bla bla bla'},
+    //     {author: 1, msg: 'bla bla bla'}, 
+    //     {author: 2, msg: 'bla bla bla bla bla'}, 
+    //     {author: 3, msg: 'bla bla bla bla bla bla'},
+    //     {author: 1, msg: 'bla bla bla'}, 
+    //     {author: 2, msg: 'bla bla bla bla bla'}, 
+    //     {author: 3, msg: 'bla bla bla bla bla bla'},
+    //     {author: 1, msg: 'bla bla bla'}, 
+    //     {author: 2, msg: 'bla bla bla bla bla'}, 
+    //     {author: 3, msg: 'bla bla bla bla bla bla'},
+    //     {author: 1, msg: 'bla bla bla'}, 
+    //     {author: 2, msg: 'bla bla bla bla bla'}, 
+    //     {author: 3, msg: 'bla bla bla bla bla bla'},
+    //     {author: 1, msg: 'bla bla bla'}, 
+    //     {author: 2, msg: 'bla bla bla bla bla'}, 
+    //     {author: 3, msg: 'bla bla bla bla bla bla'}
+    // ])
 
     useEffect(() => {
         if(body.current.scrollHeight > body.current.offsetHeight) {
             body.current.scrollTop = body.current.scrollHeight - body.current.offsetHeight
         }
-    }, [listMsgs])
-    
 
+        
+    }, [chatMsgs])
     
+    useEffect(() => {
+        setChatMsgs([])
+        let unChat = Api.onChatMsgs(chat.chatId, setChatMsgs)
+        return unChat
+    }, [chat.chatId])
     
+    const handleInputKeyUp = (e) => {
+        if(e.keyCode == 13) handleSendClick()
+    }
+
+    const handleSendClick = () => {
+        if (text !== '') {
+            Api.sendMsg(chat, user.id, 'text', text)
+            setText('')
+            setEmojiOpen(false)
+        }
+    }
 
     const handleEmojisBox = () => {
         setEmojiOpen(!emojisOpen)
@@ -107,16 +124,18 @@ export default function({user}) {
     // })
     // }
 
-    const sendMsg = (author, msg) => {
-         setListMsgs([
-             ...listMsgs, 
-             {
-                 author, 
-                 msg
-             }
-         ])
-         setText('')
-    }
+    // const sendMsg = async (user, msg) => {
+    //     await Api.addNewMsg(user, msg, chat.id)
+    //     Api.onChatMsgs(chat.id, setChatMsgs)
+    //     // setChatMsgs([
+    //     //      ...chatMsgs, 
+    //     //      {
+    //     //          author: user, 
+    //     //          msg
+    //     //      }
+    //     //  ])
+    //     //  setText('')
+    // }
 
     
 
@@ -124,8 +143,8 @@ export default function({user}) {
         <div className='chatWindow'>
             <div className="chatWindow--header">
                 <div className="chatWindow--info">
-                    <img className="chatWindow--avatar" src={user.avatar} alt="avatar" />
-                    <div className="chatWindow--name">{user.name}</div>
+                    <img className="chatWindow--avatar" src={chat.avatar} alt="avatar" />
+                    <div className="chatWindow--name">{chat.name}</div>
                 </div>
                     <div className="chatWindow--headerbuttons">
                     <div className="chatWindow--btn">
@@ -151,7 +170,7 @@ export default function({user}) {
                 </div>}
                 <div className="chatWindow--chatmsgsarea">
                     {
-                        listMsgs.map((item, key) => {
+                        chatMsgs.map((item, key) => {
                             return (
                                 <MessageItem 
                                 key={key}
@@ -182,12 +201,13 @@ export default function({user}) {
                         onChange={e => {
                             // console.log('target:', e.target.value)
                         setText(e.target.value)}}
+                        onKeyUp={handleInputKeyUp}
                     />
                 </div>
                 <div className="chatWindow--footer--pos">
                     {text 
                         ? 
-                        <div className="chatWindow--btn" onClick={() => sendMsg(user.id, text)}>
+                        <div className="chatWindow--btn" onClick={handleSendClick}>
                             <SendIcon style={{color: 'lightgray'}}/>
                         </div>
                         :

@@ -103,6 +103,20 @@ export default {
             })
         })
     },
+    addNewMsg: async (user, msg, chat) => {
+        await updateDoc(doc(db, 'chats', chat.id), {
+            messages: arrayUnion({
+                author: user,
+                msg
+            })
+        })
+    },
+    // addNewMessage: (userId, message) => {
+    //     let newMessage = await addDoc(doc(db, 'chats'), {
+    //         body: [],
+    //         users:[user1.id, user2.id]
+    //     })
+    // },
     onChatList: (userId, setChatList) => {
         return onSnapshot(doc(db, 'users', userId), (doc) => {
             if(doc.exists) {
@@ -111,6 +125,25 @@ export default {
                     setChatList(data.chats)
                 }
             }
+        })
+    },
+    onChatMsgs: (chatId, setChatMsgs) => {
+        return onSnapshot(doc(db, 'chats', chatId), (doc) => {
+            if(doc.exists) {
+                let data = doc.data()
+                setChatMsgs(data.messages)
+            }
+        })
+    },
+    sendMsg: async (chat, userId, type, body) => {
+        let now = new Date()
+        await updateDoc(doc(db, 'chats', chat.chatId), {
+            chats: arrayUnion({
+                type,
+                author: userId,
+                body,
+                date: now
+            })
         })
     }
 }

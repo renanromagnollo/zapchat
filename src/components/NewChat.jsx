@@ -38,9 +38,9 @@ export default function({user, chatlist, show, setShow, newChatList, selectedCha
         // setNewChatlist(list)
         newChatList(list)
         selectedChat({
-            avatar: user2.avatar,
             chatId: user2.id,
-            name: user2.name
+            name: user2.name,
+            avatar: user2.avatar
         })
         handleClose()
     }
