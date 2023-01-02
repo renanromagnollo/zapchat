@@ -56,6 +56,12 @@ export default memo(function({chat, user}) {
     //     {author: 2, msg: 'bla bla bla bla bla'}, 
     //     {author: 3, msg: 'bla bla bla bla bla bla'}
     // ])
+    
+    useEffect(() => {
+        setChatMsgs([])
+        let unchat = Api.onChatMsgs(chat.chatId, setChatMsgs)
+        return unchat
+    }, [chat.chatId])
 
     useEffect(() => {
         if(body.current.scrollHeight > body.current.offsetHeight) {

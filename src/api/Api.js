@@ -131,6 +131,7 @@ export default {
         return onSnapshot(doc(db, 'chats', chatId), (doc) => {
             if(doc.exists) {
                 let data = doc.data()
+                console.log('dataOnChatMsgs:', data)
                 setChatMsgs(data.messages)
             }
         })
@@ -138,7 +139,7 @@ export default {
     sendMsg: async (chat, userId, type, body) => {
         let now = new Date()
         await updateDoc(doc(db, 'chats', chat.chatId), {
-            chats: arrayUnion({
+            messages: arrayUnion({
                 type,
                 author: userId,
                 body,

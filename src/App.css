@@ -13,7 +13,7 @@ body {
   height: 100vh;
   display: flex;
   /* background-color: #EDEDED; */
-  background: url('./assets/nature02.gif');
+  background: url('./assets/silence.gif');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center 100% ;
