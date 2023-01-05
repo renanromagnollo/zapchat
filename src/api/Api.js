@@ -19,25 +19,10 @@ const firebaseApp = initializeApp(firebaseConfig)
 const analytics = getAnalytics(firebaseApp)
 const db = getFirestore(firebaseApp)
 
-
-// const googleLogin = async () => {
-//     const provider = new GoogleAuthProvider()
-//     provider.addScope('https://www.googleapis.com/auth/cloud-platform.read-only')
-// }
-
 const provider = new FacebookAuthProvider()
 const auth = getAuth()
 
-// const facebookLoginPopup = () => {
-//     signInWithPopup(auth, provider)
-//         .then(result => {
-//             // const user = result.user
-//             const credential = FacebookAuthProvider.credentialFromResult(result)
-//             const credentialToken = credential.accessToken
-//             return result
-//         })
 
-// }
 const facebookLoginPopup = async () => await signInWithPopup(auth, provider)
 
 export default {
@@ -50,14 +35,9 @@ export default {
             name: u.name, 
             avatar: u.avatar
         }, {merge: true})
-        // console.log('user:', u)
-        // await db.collection('users').doc(u.id).set({
-        //     name: u.name, 
-        //     avatar: u.avatar
-        // }, {merge: true})
     },
     getSignedList: async (userId) => {
-        let list = []
+        let usersList = []
         // let users = await collection(db, 'users')
         const q = query(collection(db, 'users'))
         const queryUsers = await getDocs(q)
@@ -66,15 +46,15 @@ export default {
             let data = result.data()
             console.log('user', data)
             if (result.id !== userId) {
-                list.push({
+                usersList.push({
                     id: result.id,
                     name: data.name,
                     avatar: data.avatar
                 })
             }
         })
-        console.log('list:', list)
-        return list
+        console.log('usersList:', usersList)
+        return usersList
     },
     
     addNewChat: async (user1, user2) => {
@@ -89,7 +69,7 @@ export default {
         await updateDoc(dataUser1, {
             chats: arrayUnion({
                 chatId: newChat.id, 
-                name: user2.name,
+                chatTitle: user2.name,
                 avatar: user2.avatar,
                 with: user2.id
             })
@@ -97,7 +77,7 @@ export default {
         await updateDoc(dataUser2, {
             chats: arrayUnion({
                 chatId: newChat.id, 
-                name: user1.name,
+                chatTitle: user1.name,
                 avatar: user1.avatar,
                 with: user1.id
             })
@@ -111,12 +91,7 @@ export default {
             })
         })
     },
-    // addNewMessage: (userId, message) => {
-    //     let newMessage = await addDoc(doc(db, 'chats'), {
-    //         body: [],
-    //         users:[user1.id, user2.id]
-    //     })
-    // },
+
     onChatList: (userId, setChatList) => {
         return onSnapshot(doc(db, 'users', userId), (doc) => {
             if(doc.exists) {
@@ -127,16 +102,17 @@ export default {
             }
         })
     },
-    onChatMsgs: (chatId, setChatMsgs) => {
+    onChatMsgs: (chatId, setChatMsgs, setUsersInChat) => {
         return onSnapshot(doc(db, 'chats', chatId), (doc) => {
             if(doc.exists) {
                 let data = doc.data()
                 console.log('dataOnChatMsgs:', data)
                 setChatMsgs(data.messages)
+                setUsersInChat(data.users)
             }
         })
     },
-    sendMsg: async (chat, userId, type, body) => {
+    sendMsg: async (chat, userId, type, body, chatUsers) => {
         let now = new Date()
         await updateDoc(doc(db, 'chats', chat.chatId), {
             messages: arrayUnion({
@@ -146,5 +122,24 @@ export default {
                 date: now
             })
         })
+
+        for (let i in chatUsers) {
+            let user = await doc(db, 'users', chatUsers[i])
+            let userData = user.data()
+            if(userData.chats) {
+                let chats = [...userData.chats]
+
+                for (let e in chats) {
+                    if(chats[e].chatId == chat.chatId) {
+                        chats[e].lastMsg = body
+                        chats[e].lastMsgDate = now
+                    }
+                }
+
+                await updateDoc(doc(db, 'users', chatUsers[i]), {
+                    chats
+                })
+            }
+        }
     }
 }

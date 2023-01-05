@@ -24,42 +24,16 @@ export default memo(function({chat, user}) {
 
     const body = useRef()
 
-    
-
     const [emojisOpen, setEmojiOpen] = useState(false)
     const [text, setText] = useState('')
     const [listening, setListening] = useState(false)
     const [chatMsgs, setChatMsgs] = useState([])
-    // const [listMsgs, setListMsgs] = useState([
-    //     {author: 1, msg: 'bla bla bla'}, 
-    //     {author: 2, msg: 'bla bla bla bla bla'}, 
-    //     {author: 3, msg: 'bla bla bla bla bla bla'},
-    //     {author: 1, msg: 'bla bla bla'}, 
-    //     {author: 2, msg: 'bla bla bla bla bla'}, 
-    //     {author: 3, msg: 'bla bla bla bla bla bla'},
-    //     {author: 1, msg: 'bla bla bla'}, 
-    //     {author: 2, msg: 'bla bla bla bla bla'}, 
-    //     {author: 3, msg: 'bla bla bla bla bla bla'},
-    //     {author: 1, msg: 'bla bla bla'}, 
-    //     {author: 2, msg: 'bla bla bla bla bla'}, 
-    //     {author: 3, msg: 'bla bla bla bla bla bla'},
-    //     {author: 1, msg: 'bla bla bla'}, 
-    //     {author: 2, msg: 'bla bla bla bla bla'}, 
-    //     {author: 3, msg: 'bla bla bla bla bla bla'},
-    //     {author: 1, msg: 'bla bla bla'}, 
-    //     {author: 2, msg: 'bla bla bla bla bla'}, 
-    //     {author: 3, msg: 'bla bla bla bla bla bla'},
-    //     {author: 1, msg: 'bla bla bla'}, 
-    //     {author: 2, msg: 'bla bla bla bla bla'}, 
-    //     {author: 3, msg: 'bla bla bla bla bla bla'},
-    //     {author: 1, msg: 'bla bla bla'}, 
-    //     {author: 2, msg: 'bla bla bla bla bla'}, 
-    //     {author: 3, msg: 'bla bla bla bla bla bla'}
-    // ])
+    const [usersInChat, setUsersInChat] = useState([])
+
     
     useEffect(() => {
         setChatMsgs([])
-        let unchat = Api.onChatMsgs(chat.chatId, setChatMsgs)
+        let unchat = Api.onChatMsgs(chat.chatId, setChatMsgs, setUsersInChat)
         return unchat
     }, [chat.chatId])
 
@@ -83,7 +57,7 @@ export default memo(function({chat, user}) {
 
     const handleSendClick = () => {
         if (text !== '') {
-            Api.sendMsg(chat, user.id, 'text', text)
+            Api.sendMsg(chat, user.id, 'text', text, usersInChat)
             setText('')
             setEmojiOpen(false)
         }
@@ -120,37 +94,12 @@ export default memo(function({chat, user}) {
         }
     }
 
-    // const inputListenEnter = () => {
-    // const chatInputEnter = document.querySelector('#chatWindow--input')
-    // chatInputEnter.addEventListener('keyup', (event) => {
-    //     if(event.key === 'Enter') {
-    //         sendMsg(user.id, text)
-    //         chatInputEnter.removeEventListener('keyup')
-    //     }
-    // })
-    // }
-
-    // const sendMsg = async (user, msg) => {
-    //     await Api.addNewMsg(user, msg, chat.id)
-    //     Api.onChatMsgs(chat.id, setChatMsgs)
-    //     // setChatMsgs([
-    //     //      ...chatMsgs, 
-    //     //      {
-    //     //          author: user, 
-    //     //          msg
-    //     //      }
-    //     //  ])
-    //     //  setText('')
-    // }
-
-    
-
     return (
         <div className='chatWindow'>
             <div className="chatWindow--header">
                 <div className="chatWindow--info">
                     <img className="chatWindow--avatar" src={chat.avatar} alt="avatar" />
-                    <div className="chatWindow--name">{chat.name}</div>
+                    <div className="chatWindow--name">{chat.chatTitle}</div>
                 </div>
                     <div className="chatWindow--headerbuttons">
                     <div className="chatWindow--btn">
