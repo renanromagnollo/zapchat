@@ -97,11 +97,23 @@
 .chatWindow--body::-webkit-scrollbar {
     width: 6px;
     height: 6px;
-  }
-  
-.chatWindow--body::-webkit-scrollbar-thumb {
-background-color: rgba(0, 0, 0, .2);
 }
+
+.chatWindow--body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, .4);
+}
+.chatWindow--body::-webkit-scrollbar-track:hover .chatWindow--body::-webkit-scrollbar{
+    width: 10px;
+}
+
+.chatWindow--body::-webkit-scrollbar-thumb {
+    background-color: rgba(74, 157, 0, .5);
+    border-radius: 5px;
+}
+.chatWindow--body::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(74, 157, 0, .9);
+}
+
 
 .chatWindow--body {
     position: relative;
@@ -115,6 +127,8 @@ background-color: rgba(0, 0, 0, .2);
     overflow-x: hidden;
     /* background-color: pink; */
 }
+ background-color: pink; */
+
 .chatWindow--emojiarea {
     /* bottom: 0px; */
     /* width: 100%;*/
@@ -172,17 +186,17 @@ aside.EmojiPickerReact.epr-main {
     height: 40px;
     border: 0;
     outline: 0;
-    background-color: rgba(0, 0, 0, .6);
+    background-color: rgba(0, 0, 0, .8);
     border-radius: 10px;
     font-size: 15px;
-    color: #4A4A4A;
+    color: #FFFFFF;
     padding-left: 15px;
     
 }
 
-.chatWindow--input input {
-    color: #F1F1F1;
-}
+/* .chatWindow--input input {
+    color: blue;
+} */
 .chatWindow--footer--pos {
     display: flex;
     marign: 0 15px;

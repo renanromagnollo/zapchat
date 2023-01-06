@@ -96,8 +96,21 @@ export default {
         return onSnapshot(doc(db, 'users', userId), (doc) => {
             if(doc.exists) {
                 let data = doc.data()
+
                 if(data.chats) {
-                    setChatList(data.chats)
+                    let chats = [...data.chats]
+                    chats.sort((a, b) => {
+                        if(chats.lastMsgDate === undefined) {
+                            return -1
+                        }
+    
+                        if (a.lastMsgDate.seconds < b.lastMsgDate.seconds){
+                            return 1
+                        } else {
+                            return -1
+                        }
+                    })
+                    setChatList(chats)
                 }
             }
         })
