@@ -47,7 +47,7 @@ export default memo(function({chat, user}) {
     
     useEffect(() => {
         setChatMsgs([])
-        let unChat = Api.onChatMsgs(chat.chatId, setChatMsgs)
+        let unChat = Api.onChatMsgs(chat.chatId, setChatMsgs, setUsersInChat)
         return unChat
     }, [chat.chatId])
     

@@ -107,6 +107,7 @@ export default {
             if(doc.exists) {
                 let data = doc.data()
                 console.log('dataOnChatMsgs:', data)
+                console.log('data.users: ', data.users)
                 setChatMsgs(data.messages)
                 setUsersInChat(data.users)
             }
@@ -124,8 +125,11 @@ export default {
         })
 
         for (let i in chatUsers) {
-            let user = await doc(db, 'users', chatUsers[i])
-            let userData = user.data()
+            console.log('chatUsersI: ', chatUsers[i])
+            let user = doc(db, 'users', chatUsers[i])
+            let userDoc = await getDoc(user)
+            let userData = userDoc.data()
+            console.log('userData: ', userData)
             if(userData.chats) {
                 let chats = [...userData.chats]
 
